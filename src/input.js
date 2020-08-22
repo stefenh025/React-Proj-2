@@ -14,15 +14,7 @@ export default class Input extends React.Component{
     });
     this.props.updateDesired(!(this.state.undesired), this.props.position);
   }
-  render(){
-    // let pie;
-    // if(this.state.undesired){
-    //   pie = <h1>True</h1>;
-    // }
-    // else{
-    //   pie = <h1>False</h1>;
-    // }
-    
+  render(){    
     return(
       <div className="my-3">
         <div className="input-group">
@@ -53,7 +45,6 @@ export default class Input extends React.Component{
             </label>
           </div>
         </div>
-        {/* {pie} */}
       </div>
     )
   }

@@ -19,6 +19,8 @@ export default class Calculator extends React.Component{
   handleSubmit(e){
 
   }
+  //Creates an Empty Object to be pushed into our array of objects
+  //Update state to let child component know to display the additional field that corresponds to object made
   handleAddClick(){
     this.setState({
       numOfEvents: this.state.numOfEvents + 1,
@@ -32,13 +34,14 @@ export default class Calculator extends React.Component{
     data.events.push(emptyEvent);
     console.log(data.events);
   }
-  //Called in child input.js to update state here
+  //On a text field's onBlur, update the appropriate object's prob
   updateProb(e, index){
     console.log(index);
     data.events[index] = {
       position: index,
       eventProb: e.target.value,
       eventValue: data.events[index].eventValue,
+      eventUndesired: true,
     }
     console.log(data.events[index]);
   }
@@ -75,7 +78,7 @@ export default class Calculator extends React.Component{
           />
           </div>
           <div className="col">
-          <Results />
+          <Results data={data.events}/>
           </div>
         </div>
       </div>
