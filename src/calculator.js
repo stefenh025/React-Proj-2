@@ -68,7 +68,7 @@ export default class Calculator extends React.Component{
     return(
       <div className="container">
         <div className="row">
-          <div className="col">
+          <div className="col mx-3">
           <UserInput 
             numOfEvents={this.state.numOfEvents} 
             updateProb={this.updateProb} 
@@ -77,7 +77,7 @@ export default class Calculator extends React.Component{
             handleAddClick={this.handleAddClick}
           />
           </div>
-          <div className="col">
+          <div className="col mx-3">
           <Results data={data.events}/>
           </div>
         </div>
