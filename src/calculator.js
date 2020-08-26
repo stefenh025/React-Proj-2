@@ -8,6 +8,7 @@ export default class Calculator extends React.Component{
     super(props);
     this.state = {
       numOfEvents : 2,
+      valueNumber: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateProb = this.updateProb.bind(this);
@@ -32,37 +33,38 @@ export default class Calculator extends React.Component{
       eventValue: "",
     }
     data.events.push(emptyEvent);
-    console.log(data.events);
+    //console.log(data.events);
   }
   //On a text field's onBlur, update the appropriate object's prob
   updateProb(e, index){
-    console.log(index);
+    //console.log(index);
     data.events[index] = {
       position: index,
       eventProb: e.target.value,
       eventValue: data.events[index].eventValue,
-      eventUndesired: true,
+      eventUndesired: data.events[index].eventUndesired,
     }
-    console.log(data.events[index]);
+    //console.log(data.events[index]);
   }
   updateValue(e, index){
-    console.log(index);
+    //console.log(index);
     data.events[index] = {
       position: index,
       eventProb: data.events[index].eventProb,
       eventValue: e.target.value,
+      eventUndesired: data.events[index].eventUndesired,
     }
-    console.log(data.events[index]);
+    //console.log(data.events[index]);
   }  
   updateDesired(undesired, index){
-    console.log(index);
+    //console.log(index);
     data.events[index] = {
       position: index,
       eventProb: data.events[index].eventProb,
       eventValue: data.events[index].eventValue,
       eventUndesired: undesired,
     }
-    console.log(data.events[index]);
+    //console.log(data.events[index]);
   }
   render(){
     return(
@@ -78,7 +80,7 @@ export default class Calculator extends React.Component{
           />
           </div>
           <div className="col mx-3">
-          <Results data={data.events}/>
+          <Results data={data.events} valueNumber={this.state.valueNumber}/>
           </div>
         </div>
       </div>

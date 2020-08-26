@@ -6,7 +6,7 @@ export default class Results extends React.Component{
     return(
       <div style={{color:"white"}}>
         <h1>Results</h1>
-        <Probability data={this.props.data}/>
+        <Probability data={this.props.data} valueNumber={this.props.valueNumber}/>
       </div>
     )
   }
