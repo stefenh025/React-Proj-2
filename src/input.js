@@ -16,17 +16,22 @@ export default class Input extends React.Component{
   }
   render(){    
     return(
-      <div className="my-3">
-        <div className="input-group">
-
-          <div className="input-group-prepend">
-            <span className="input-group-text" id="">Event {this.props.position + 1}</span>
+      <div className="my-3 container px-0">
+        <div className="input-group row mx-0">
+          
+          <div className="input-group-prepend col-sm-12 col-md-2 px-0">
+            <span className="input-group-text w-100">Event {this.props.position + 1}</span>
           </div>
+          <div className="col-sm-6 col-md-3 px-0">
           <input name="eventProb" type="number" min="0" max="100" step="any" className="form-control" placeholder="%" onBlur={e => this.props.updateProb(e, this.props.position)}></input>
+          </div>
+          <div className="col-sm-6 col-md-3 px-0">
           <input name="eventValue" type="text" className="form-control" placeholder="Value" onBlur={e => this.props.updateValue(e, this.props.position)}></input>
+          </div>
+          
 
-          <div className="btn-group btn-group-toggle" data-toggle="buttons">
-            <label className={"btn btn-secondary " + (this.state.undesired ? "active" : "")}>
+          <div className="btn-group btn-group-toggle col-sm-12 col-md-4 px-0" data-toggle="buttons">
+            <label className={"btn btn-secondary px-0 mx-0 " + (this.state.undesired ? "active" : "")}>
                 <input 
                 type="radio" 
                 name="options" 
@@ -35,7 +40,7 @@ export default class Input extends React.Component{
                 checked={this.state.undesired}
                 onChange={this.handleOptions}></input>Undesired
             </label>
-            <label className={"btn btn-secondary " + (!this.state.undesired ? "active" : "")}>
+            <label style={{paddingLeft: "8px", paddingRight: "8px"}} className={"btn btn-secondary mx-0 " + (!this.state.undesired ? "active" : "")}>
               <input 
               type="radio" 
               name="options" 

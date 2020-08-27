@@ -1,6 +1,7 @@
 import React from 'react';
 import UserInput from './userinput.js';
 import Results from './results.js';
+import Chart from 'react-google-charts';
 let data = require('./eventProbabilities.js');
 
 export default class Calculator extends React.Component{
@@ -30,7 +31,8 @@ export default class Calculator extends React.Component{
     let emptyEvent = {
       position: this.state.numOfEvents + 1,
       eventProb: "",
-      eventValue: "",
+      eventValue: "Event " + (this.state.numOfEvents + 1),
+      eventUndesired: true,
     }
     data.events.push(emptyEvent);
     //console.log(data.events);
@@ -67,10 +69,16 @@ export default class Calculator extends React.Component{
     //console.log(data.events[index]);
   }
   render(){
+    let dataArray = [["Event Value", "Probability"]];
+    data.events.forEach(
+      event =>(
+        dataArray.push([event.eventValue, parseFloat(event.eventProb)])  
+      )
+    );
     return(
       <div className="container">
         <div className="row">
-          <div className="col mx-3">
+          <div className="col-lg mx-3">
           <UserInput 
             numOfEvents={this.state.numOfEvents} 
             updateProb={this.updateProb} 
@@ -79,10 +87,24 @@ export default class Calculator extends React.Component{
             handleAddClick={this.handleAddClick}
           />
           </div>
-          <div className="col mx-3">
+          <div className="col-lg mx-3">
           <Results data={data.events} valueNumber={this.state.valueNumber}/>
           </div>
         </div>
+            <Chart
+            
+      width="100%"
+      height="50vh"
+      chartType="PieChart"
+      loader={<div>Loading Chart</div>}
+      data={dataArray}
+      options={{
+        title: 'Your Outcome',
+        titleTextStyle: {color: 'white'},
+        legendTextStyle: {color: 'white'},
+        backgroundColor: 'transparent',
+      }}
+    />
       </div>
     )
   }
