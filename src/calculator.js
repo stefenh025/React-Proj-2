@@ -35,46 +35,56 @@ export default class Calculator extends React.Component{
       eventUndesired: true,
     }
     data.events.push(emptyEvent);
-    //console.log(data.events);
   }
-  //On a text field's onBlur, update the appropriate object's prob
+  //On a text field's onChange, update the appropriate object's prob
+  //OnBlue does not work as well since user might skip leaving field to directly clicking a box
   updateProb(e, index){
-    //console.log(index);
+    let removePercent = e.target.value.replace("%","");
     data.events[index] = {
       position: index,
-      eventProb: e.target.value,
+      eventProb: removePercent,
       eventValue: data.events[index].eventValue,
       eventUndesired: data.events[index].eventUndesired,
     }
-    //console.log(data.events[index]);
   }
+  //On a text field's onChange, update the corresponding array's value
   updateValue(e, index){
-    //console.log(index);
     data.events[index] = {
       position: index,
       eventProb: data.events[index].eventProb,
       eventValue: e.target.value,
       eventUndesired: data.events[index].eventUndesired,
     }
-    //console.log(data.events[index]);
   }  
+  //On a text field's onChange, update the corresponding array's Desired boolean
   updateDesired(undesired, index){
-    //console.log(index);
     data.events[index] = {
       position: index,
       eventProb: data.events[index].eventProb,
       eventValue: data.events[index].eventValue,
       eventUndesired: undesired,
     }
-    //console.log(data.events[index]);
   }
+
   render(){
+    //Compiles the data to be placed into the piechart imported from Google
     let dataArray = [["Event Value", "Probability"]];
+    let totalUndesiredProb = 0;
+    let totalDesiredProb = 0;
     data.events.forEach(
       event =>(
         dataArray.push([event.eventValue, parseFloat(event.eventProb)])  
       )
     );
+
+    //Calculates the total Probability of both Desired and Undesired events
+    data.events.filter(event => (event.eventUndesired)).filter(event => (event.eventProb !== "")).forEach(event => (totalUndesiredProb = totalUndesiredProb + parseFloat(event.eventProb)));
+    data.events.filter(event => (!(event.eventUndesired))).filter(event => (event.eventProb !== "")).forEach(event => (totalDesiredProb = totalDesiredProb + parseFloat(event.eventProb)));
+    //Fills the remaining probability with a dummy value
+    if (totalDesiredProb + totalUndesiredProb !== 100){
+      let remainProb = (100 - totalUndesiredProb);   
+      dataArray.push(["Remaining Undesired", remainProb]);
+    }
     return(
       <div className="container">
         <div className="row">
@@ -88,23 +98,22 @@ export default class Calculator extends React.Component{
           />
           </div>
           <div className="col-lg mx-3">
-          <Results data={data.events} valueNumber={this.state.valueNumber}/>
+            <Results data={data.events} valueNumber={this.state.valueNumber}/>
           </div>
         </div>
-            <Chart
-            
-      width="100%"
-      height="50vh"
-      chartType="PieChart"
-      loader={<div>Loading Chart</div>}
-      data={dataArray}
-      options={{
-        title: 'Your Outcome',
-        titleTextStyle: {color: 'white'},
-        legendTextStyle: {color: 'white'},
-        backgroundColor: 'transparent',
-      }}
-    />
+        <Chart
+          width="100%"
+          height="50vh"
+          chartType="PieChart"
+          loader={<div>Loading Chart</div>}
+          data={dataArray}
+          options={{
+            title: 'Your Outcome',
+            titleTextStyle: {color: 'white'},
+            legendTextStyle: {color: 'white'},
+            backgroundColor: 'transparent',
+          }}
+          />
       </div>
     )
   }

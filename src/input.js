@@ -23,10 +23,10 @@ export default class Input extends React.Component{
             <span className="input-group-text w-100">Event {this.props.position + 1}</span>
           </div>
           <div className="col-sm-6 col-md-3 px-0">
-          <input name="eventProb" type="number" min="0" max="100" step="any" className="form-control" placeholder="%" onBlur={e => this.props.updateProb(e, this.props.position)}></input>
+          <input name="eventProb" type="text" className="form-control" placeholder="%" onChange={e => this.props.updateProb(e, this.props.position)}></input>
           </div>
           <div className="col-sm-6 col-md-3 px-0">
-          <input name="eventValue" type="text" className="form-control" placeholder="Value" onBlur={e => this.props.updateValue(e, this.props.position)}></input>
+          <input name="eventValue" type="text" className="form-control" placeholder="Value" onChange={e => this.props.updateValue(e, this.props.position)}></input>
           </div>
           
 

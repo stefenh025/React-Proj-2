@@ -1,5 +1,4 @@
 import React from 'react';
-//let data = "./eventProbabilites.js";
 
 export default class Probability extends React.Component{
   constructor(props){
@@ -18,6 +17,8 @@ export default class Probability extends React.Component{
     this.checkValueNum = this.checkValueNum.bind(this);
     this.handleCustomInput = this.handleCustomInput.bind(this);
   }
+
+  //Calculates the probability with the user input, filtering only the inputs labeled with "Desired"
   calculateProbabilities(){
     let totalDesiredProb = 0;
     let desiredEvents = this.props.data.filter(event => !(event.eventUndesired));
@@ -35,20 +36,23 @@ export default class Probability extends React.Component{
     
     this.checkValueNum();
   }
+  //Calculates the expected value taking everything into account
+  //This is only called if all values are numbers
   calculateEV(){
     let EV = 0;
     this.props.data.forEach(event =>{
-      EV = EV + (event.eventProb/100) * (parseFloat(event.eventValue));
-      console.log(event.eventUndesired);
-      console.log(event);
+      let removeSymbol = event.eventValue.replace("$", "");
+      EV = EV + (event.eventProb/100) * (parseFloat(removeSymbol));
     })
     return EV;
   }
+  //This checks if all values are numbers
   checkValueNum(){
     let valueIsNumCheck = true;
     this.props.data.forEach(event =>{
       //Use RegEx to check if Value input is a number, if so, then we can calculate an Expected Value
-      if (/^\d*\.?\d+$/.test(event.eventValue)){
+      let removeSymbol = event.eventValue.replace("$", "");
+      if (/^\d*\.?\d+$/.test(removeSymbol)){
         valueIsNumCheck = valueIsNumCheck && true;
       }
       else {
@@ -59,6 +63,7 @@ export default class Probability extends React.Component{
       valueIsNum: valueIsNumCheck,
     })
   }
+  //This just changes the state for user inputting a custom try
   handleCustomInput(e){
     this.setState({
       chanceCustom: e.target.value,
@@ -66,6 +71,7 @@ export default class Probability extends React.Component{
     
   }
   render(){
+    //Conditional rendering based on a state that checks if values are numerical and displays accordingly
     let expectedValue;
     if (this.state.valueIsNum){
       let calculatedEV = this.calculateEV();
