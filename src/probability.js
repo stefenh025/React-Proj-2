@@ -30,7 +30,7 @@ export default class Probability extends React.Component{
       chanceTen: ((1-(Math.pow(probUndesired,10)))*100).toFixed(2) + "%",
       chanceTwenty: ((1-(Math.pow(probUndesired,20)))*100).toFixed(2) + "%",
       chanceFifty: ((1-(Math.pow(probUndesired,50)))*100).toFixed(2) + "%",
-      chanceHundred: ((1-(Math.pow(probUndesired,400)))*100).toFixed(2) + "%",
+      chanceHundred: ((1-(Math.pow(probUndesired,100)))*100).toFixed(2) + "%",
       chanceCustomProb: ((1-(Math.pow(probUndesired,this.state.chanceCustom)))*100).toFixed(2) + "%",
     });
     
