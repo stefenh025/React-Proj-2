@@ -12,5 +12,7 @@ function App() {
     </div>
   );
 }
-
+// To do list:
+// Add Validation
+// Fix Render for Pie Chart
 export default App;
