@@ -1,8 +1,8 @@
 import React from 'react';
-import UserInput from './userinput.js';
-import Results from './results.js';
+import UserInput from '../User Input/userinput.js';
+import Results from '../Result Chances/results.js';
 import Chart from 'react-google-charts';
-let data = require('./eventProbabilities.js');
+let data = require('../Events DB/eventProbabilities.js');
 
 export default class Calculator extends React.Component{
   constructor(props){
@@ -11,16 +11,17 @@ export default class Calculator extends React.Component{
       numOfEvents : 2,
       valueNumber: false,
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAddClick = this.handleAddClick.bind(this);
     this.updateProb = this.updateProb.bind(this);
     this.updateValue = this.updateValue.bind(this);
     this.updateDesired = this.updateDesired.bind(this);
-    this.handleAddClick = this.handleAddClick.bind(this);
   }
   //Should take in all of User input's and push into eventProbabilities.js if new
-  handleSubmit(e){
+  // handleSubmit(e){
 
-  }
+  // }
+
   //Creates an Empty Object to be pushed into our array of objects
   //Update state to let child component know to display the additional field that corresponds to object made
   handleAddClick(){
@@ -36,6 +37,7 @@ export default class Calculator extends React.Component{
     }
     data.events.push(emptyEvent);
   }
+
   //On a text field's onChange, update the appropriate object's prob
   //OnBlue does not work as well since user might skip leaving field to directly clicking a box
   updateProb(e, index){
@@ -47,6 +49,7 @@ export default class Calculator extends React.Component{
       eventUndesired: data.events[index].eventUndesired,
     }
   }
+
   //On a text field's onChange, update the corresponding array's value
   updateValue(e, index){
     data.events[index] = {
