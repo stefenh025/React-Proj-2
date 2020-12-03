@@ -9,7 +9,7 @@ export default class Calculator extends React.Component{
     super(props);
     this.state = {
       numOfEvents : 2,
-      valueNumber: false,
+      //valueNumber: false,
     }
     // this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAddClick = this.handleAddClick.bind(this);
@@ -81,8 +81,16 @@ export default class Calculator extends React.Component{
     );
 
     //Calculates the total Probability of both Desired and Undesired events
-    data.events.filter(event => (event.eventUndesired)).filter(event => (event.eventProb !== "")).forEach(event => (totalUndesiredProb = totalUndesiredProb + parseFloat(event.eventProb)));
-    data.events.filter(event => (!(event.eventUndesired))).filter(event => (event.eventProb !== "")).forEach(event => (totalDesiredProb = totalDesiredProb + parseFloat(event.eventProb)));
+    data.events.filter(
+      event => (event.eventUndesired)).filter(
+        event => (event.eventProb !== "")).forEach(
+          event => (totalUndesiredProb = totalUndesiredProb + parseFloat(event.eventProb))
+          );
+    data.events.filter(
+      event => (!(event.eventUndesired))).filter(
+        event => (event.eventProb !== "")).forEach(
+          event => (totalDesiredProb = totalDesiredProb + parseFloat(event.eventProb))
+          );
     //Fills the remaining probability with a dummy value
     if (totalDesiredProb + totalUndesiredProb !== 100){
       let remainProb = (100 - totalUndesiredProb);   
@@ -101,7 +109,8 @@ export default class Calculator extends React.Component{
           />
           </div>
           <div className="col-lg mx-3">
-            <Results data={data.events} valueNumber={this.state.valueNumber}/>
+            {/* <Results data={data.events} valueNumber={this.state.valueNumber}/> */}
+            <Results data={data.events}/>
           </div>
         </div>
         <Chart
