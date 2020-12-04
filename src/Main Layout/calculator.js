@@ -39,7 +39,7 @@ export default class Calculator extends React.Component{
   }
 
   //On a text field's onChange, update the appropriate object's prob
-  //OnBlue does not work as well since user might skip leaving field to directly clicking a box
+  //OnBlur does not work as well since user might skip leaving field to directly clicking a box
   updateProb(e, index){
     let removePercent = e.target.value.replace("%","");
     data.events[index] = {
@@ -91,9 +91,12 @@ export default class Calculator extends React.Component{
         event => (event.eventProb !== "")).forEach(
           event => (totalDesiredProb = totalDesiredProb + parseFloat(event.eventProb))
           );
+          console.log(totalUndesiredProb);
+          console.log(totalDesiredProb);
     //Fills the remaining probability with a dummy value
     if (totalDesiredProb + totalUndesiredProb !== 100){
-      let remainProb = (100 - totalUndesiredProb);   
+      let remainProb = (100 - totalUndesiredProb - totalDesiredProb);   
+      console.log(remainProb);
       dataArray.push(["Remaining Undesired", remainProb]);
     }
     return(
