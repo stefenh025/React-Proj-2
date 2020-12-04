@@ -13,6 +13,6 @@ function App() {
   );
 }
 // To do list:
-// Add Validation
-// Fix Render for Pie Chart
+// Add Notifier for NaN inputs on result box (low prior as validation works)
+// Find a proper fix for rerender of pie graph
 export default App;

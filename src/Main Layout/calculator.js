@@ -8,7 +8,7 @@ export default class Calculator extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      numOfEvents : 2,
+      numOfEvents : 1,
       //valueNumber: false,
       hello : true,
     }
@@ -104,11 +104,15 @@ export default class Calculator extends React.Component{
         event => (event.eventProb !== "")).forEach(
           event => (totalDesiredProb = totalDesiredProb + parseFloat(event.eventProb))
           );
-          console.log(totalDesiredProb);
     //Fills the remaining probability with a dummy value
     if (totalDesiredProb + totalUndesiredProb !== 100){
-      let remainProb = (100 - totalUndesiredProb - totalDesiredProb);   
-      dataArray.push(["Remaining Undesired", remainProb]);
+      if (totalDesiredProb + totalUndesiredProb > 100){
+        alert("Probabilities are higher than 100%, please keep event chances under 100%");
+      }
+      else{
+        let remainProb = (100 - totalUndesiredProb - totalDesiredProb);   
+        dataArray.push(["Remaining Undesired", remainProb]);
+      }
     }
     return(
       <div className="container">

@@ -46,7 +46,7 @@ export default class Probability extends React.Component{
     })
     return EV;
   }
-  //This checks if all values are numbers
+  //This checks if all values are numbers, catches mistakes if user ignores alert from user input
   checkValueNum(){
     let valueIsNumCheck = true;
     this.props.data.forEach(event =>{
@@ -59,6 +59,7 @@ export default class Probability extends React.Component{
         valueIsNumCheck = valueIsNumCheck && false;
       }
     })
+    console.log(valueIsNumCheck);
     this.setState({
       valueIsNum: valueIsNumCheck,
     })
@@ -68,7 +69,6 @@ export default class Probability extends React.Component{
     this.setState({
       chanceCustom: e.target.value,
     });
-    
   }
   render(){
     //Conditional rendering based on a state that checks if values are numerical and displays accordingly
