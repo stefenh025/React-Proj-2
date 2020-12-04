@@ -10,6 +10,7 @@ export default class Calculator extends React.Component{
     this.state = {
       numOfEvents : 2,
       //valueNumber: false,
+      hello : true,
     }
     // this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAddClick = this.handleAddClick.bind(this);
@@ -42,12 +43,20 @@ export default class Calculator extends React.Component{
   //OnBlur does not work as well since user might skip leaving field to directly clicking a box
   updateProb(e, index){
     let removePercent = e.target.value.replace("%","");
-    data.events[index] = {
-      position: index,
-      eventProb: removePercent,
-      eventValue: data.events[index].eventValue,
-      eventUndesired: data.events[index].eventUndesired,
+    if (isNaN(e.target.value) === false){
+      data.events[index] = {
+        position: index,
+        eventProb: removePercent,
+        eventValue: data.events[index].eventValue,
+        eventUndesired: data.events[index].eventUndesired,
+      }
+      this.forceUpdate();
     }
+    else{
+      alert("Please enter a number!");
+    }
+    //Force rerender of screen on user change --bandaid, should avoid forceUpdate calls in react
+    
   }
 
   //On a text field's onChange, update the corresponding array's value
@@ -58,6 +67,8 @@ export default class Calculator extends React.Component{
       eventValue: e.target.value,
       eventUndesired: data.events[index].eventUndesired,
     }
+    //Force rerender of screen on user change --bandaid, should avoid forceUpdate calls in react
+    this.forceUpdate();
   }  
   //On a text field's onChange, update the corresponding array's Desired boolean
   updateDesired(undesired, index){
@@ -81,22 +92,22 @@ export default class Calculator extends React.Component{
     );
 
     //Calculates the total Probability of both Desired and Undesired events
+    //Filters Event by Undesired bool, makes sure probability field isn't empty then adds it to total undesired
     data.events.filter(
       event => (event.eventUndesired)).filter(
         event => (event.eventProb !== "")).forEach(
           event => (totalUndesiredProb = totalUndesiredProb + parseFloat(event.eventProb))
           );
+    //Filters Event by desired bool, makes sure probability field isn't empty then adds it to total undesired
     data.events.filter(
       event => (!(event.eventUndesired))).filter(
         event => (event.eventProb !== "")).forEach(
           event => (totalDesiredProb = totalDesiredProb + parseFloat(event.eventProb))
           );
-          console.log(totalUndesiredProb);
           console.log(totalDesiredProb);
     //Fills the remaining probability with a dummy value
     if (totalDesiredProb + totalUndesiredProb !== 100){
       let remainProb = (100 - totalUndesiredProb - totalDesiredProb);   
-      console.log(remainProb);
       dataArray.push(["Remaining Undesired", remainProb]);
     }
     return(
