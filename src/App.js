@@ -15,4 +15,5 @@ function App() {
 // To do list:
 // Add Notifier for NaN inputs on result box (low prior as validation works)
 // Find a proper fix for rerender of pie graph
+// Super(props) is deprecated, should be removed (leaving it for now)
 export default App;
